@@ -62,10 +62,9 @@ def update_settings(
     if usetex:
         texparams = {  # 'backend': 'PDF',
             "text.usetex": True,
+            "text.latex.preamble": latex_preamble,
+            "font.family": "Computer Modern"
         }
-
-        plt.rcParams["text.latex.preamble"] = latex_preamble
-        plt.rcParams["font.family"] = ["sans-serif"]
         plt.rcParams.update(texparams)
 
     if colors is not None:
