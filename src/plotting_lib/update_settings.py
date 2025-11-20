@@ -17,7 +17,6 @@ colors_rsb = [
     "#F58C56",
 ]
 
-
 def update_settings(
     usetex: Optional[bool] = False,
     style: Optional[str] = "APS",
@@ -63,8 +62,8 @@ def update_settings(
         texparams = {  # 'backend': 'PDF',
             "text.usetex": True,
             "text.latex.preamble": latex_preamble,
-            "font.family": "Computer Modern"
         }
+        plt.rcParams["font.family"] = "Computer Modern"
         plt.rcParams.update(texparams)
 
     if colors is not None:

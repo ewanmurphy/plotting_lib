@@ -15,3 +15,8 @@ The library comes with a few built-in styles that can be used to customize the a
 - 'aps': A style to represent the size and font requirements for the APS journal family.
 - 'nature': A style to represent the size and font requirements for the Nature journal family.
 - 'quantum': A style to represent the size and font requirements of the Quantum journal.
+
+
+# Forked Repo
+
+This repo was originally forked from one by Timo Hillmann.
