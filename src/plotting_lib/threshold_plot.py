@@ -25,20 +25,35 @@ class Style(str, Enum):
 
 app = typer.Typer()
 
-
 @app.command()
+def generate_threshold_plot_cmd(csv_file_path: str,
+                                title: str,
+                                style: Style = Style.base,
+                                output_path: str = typer.Option("", help="If no output path is provided, the plot will be saved in the current directory with the same name as the title"),
+                                threshold_value: float = typer.Option(None, help="Theshold value for the plot"),
+                                threshold_error: float = typer.Option(None, help="Symmetric error for the threshold"),
+                                threshold_error_below: float = typer.Option(None, help="Asymmetric error for the threshold"),
+                                threshold_error_above: float = typer.Option(None, help="Asymmetric error for the threshold"),
+                                trim_x_above: float = typer.Option(np.inf, help="Data points with an physical error above this value, exclusive, will not be plotted"),
+                                trim_y_above: float = typer.Option(np.inf, help="Data points with an logical error above this value, exclusive, will not be plotted"),
+                                trim_x_below: float = typer.Option(-np.inf, help="Data points with an physical error below this value, exclusive, will not be plotted"),
+                                trim_y_below: float = typer.Option(-np.inf, help="Data points with an logical error below this value, exclusive, will not be plotted"),
+):
+
+    generate_threshold_plot(csv_file_path, title, style, output_path, threshold_value, threshold_error, threshold_error_below , threshold_error_above , trim_x_above, trim_y_above, trim_x_below, trim_y_below)
+
 def generate_threshold_plot(csv_file_path: str,
                             title: str,
                             style: Style = Style.base,
-                            output_path: str = typer.Option("", help="If no output path is provided, the plot will be saved in the current directory with the same name as the title"),
-                            threshold_value: float = typer.Option(None, help="Theshold value for the plot"),
-                            threshold_error: float = typer.Option(None, help="Symmetric error for the threshold"),
-                            threshold_error_below: float = typer.Option(None, help="Asymmetric error for the threshold"),
-                            threshold_error_above: float = typer.Option(None, help="Asymmetric error for the threshold"),
-                            trim_x_above: float = typer.Option(np.inf, help="Data points with an physical error above this value, exclusive, will not be plotted"),
-                            trim_y_above: float = typer.Option(np.inf, help="Data points with an logical error above this value, exclusive, will not be plotted"),
-                            trim_x_below: float = typer.Option(-np.inf, help="Data points with an physical error below this value, exclusive, will not be plotted"),
-                            trim_y_below: float = typer.Option(-np.inf, help="Data points with an logical error below this value, exclusive, will not be plotted"),
+                            output_path: str = "",
+                            threshold_value: float = None,
+                            threshold_error: float = None,
+                            threshold_error_below: float = None,
+                            threshold_error_above: float = None,
+                            trim_x_above: float = np.inf,
+                            trim_y_above: float = np.inf,
+                            trim_x_below: float = -np.inf,
+                            trim_y_below: float = -np.inf,
 ):
     """
     Generate threshold plots
