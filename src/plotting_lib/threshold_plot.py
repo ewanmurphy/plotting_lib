@@ -95,7 +95,8 @@ def generate_threshold_plot(csv_file_path: str,
     # Set axis labels
     ax.set_xlabel(r"Physical Error Rate")
     ax.set_ylabel(r"\(p_{L}\)")
-    ax.set_yscale("log")
+    #ax.set_yscale("log")
+    ax.loglog()
     ax.margins(x=0.05)
     #ax.grid(True)
     ax.legend(framealpha=1, facecolor="white") # add legend
