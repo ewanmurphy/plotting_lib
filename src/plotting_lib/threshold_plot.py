@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import ndarray
 import plotting_lib as pl
 from plotting_lib.plotting import plot_marker_style
 import matplotlib.pyplot as plt
@@ -6,6 +7,7 @@ import pandas as pd
 import typer
 from enum import Enum
 import textwrap
+from typing import List, Dict, Tuple, Callable, Any
 
 marker_cycle = [
     "o",
@@ -109,6 +111,52 @@ def generate_threshold_plot(csv_file_path: str,
         pl.save_fig(fig, f"{title}.pdf")
     else:
         pl.save_fig(fig, output_path)
+
+
+def threshold_plot_from_function(
+        logical_error_function: Callable[[int, int], int],
+        physical_error_range: ndarray,
+        num_shots: int,
+        kwargs_with_labels: Tuple[Dict[str, Any], str],
+        title : str = None,
+        path : str = None,
+        include_physical_error : bool = False,
+):
+
+    labeled_df_list = []
+    for labelled_kwargs in kwargs_with_labels:
+        label = labelled_kwargs[1]
+        kwargs = labelled_kwargs[0]
+        labeled_df = pd.DataFrame(columns=["physical error", "logical error", "logical error interval above", "logical error interval below", "label"])
+        labeled_df["physical error"] =  physical_error_range
+        labeled_df["label"] = label
+        labeled_df["logical error interval above"] = 0
+        labeled_df["logical error interval below"] = 0
+        print(label)
+        logical_errors = []
+        for physical_error in physical_error_range:
+            logical_flips = logical_error_function(physical_error, num_shots, **kwargs)
+            print(logical_flips)
+            logical_errors.append(logical_flips / num_shots)
+        labeled_df["logical error"] = logical_errors
+        labeled_df_list.append(labeled_df)
+    plot_df = pd.concat(labeled_df_list, ignore_index=True)
+
+    if title == None:
+        title = "Temp Plot"
+    plot_df.to_csv(f"{title}.csv", index=False)
+    if path == None:
+        generate_threshold_plot(
+            f"{title}.csv",
+            title,
+            output_path=f"{title}.pdf"
+        )
+    else:
+        generate_threshold_plot(
+            f"{title}.csv",
+            title,
+            output_path=path
+        )
 
 def main():
     app()
