@@ -140,6 +140,16 @@ def threshold_plot_from_function(
             logical_errors.append(logical_flips / num_shots)
         labeled_df["logical error"] = logical_errors
         labeled_df_list.append(labeled_df)
+
+    if include_physical_error:
+        labeled_df = pd.DataFrame(columns=["physical error", "logical error", "logical error interval above", "logical error interval below", "label"])
+        labeled_df["physical error"] =  physical_error_range
+        labeled_df["logical error"] =  physical_error_range
+        labeled_df["label"] = "Physical Error"
+        labeled_df["logical error interval above"] = 0
+        labeled_df["logical error interval below"] = 0
+        labeled_df_list.append(labeled_df)
+
     plot_df = pd.concat(labeled_df_list, ignore_index=True)
 
     if title == None:
