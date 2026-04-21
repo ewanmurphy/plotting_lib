@@ -22,6 +22,6 @@ setup(
         "pandas",
         "typer",
         "PyQt5", 
-        "PySide2"
+        "PySide6"
     ],
 )
