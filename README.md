@@ -7,7 +7,13 @@ This is a simple plotting library that I wrote for my own use. It is not meant t
 Download the repository and run the following command in the root directory of the repository:
 
 ```bash
-pip install .
+uv sync
+```
+
+To install the package into an already activated environment instead, run:
+
+```bash
+uv pip install .
 ```
 
 ## Styles

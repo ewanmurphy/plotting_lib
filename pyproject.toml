@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plotting_lib"
+version = "0.2.0"
+description = "A library for plotting data"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Ewan Murphy", email = "ewan.murphy@inria.fr" },
+]
+license = "MIT"
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "scipy",
+    "pandas",
+    "typer",
+    "PyQt5",
+    "PySide6",
+]
+
+[project.scripts]
+threshold_plot = "plotting_lib.threshold_plot:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+plotting_lib = ["journal_styles/*"]

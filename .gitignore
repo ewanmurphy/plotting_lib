@@ -10,6 +10,7 @@
 
 # virtual environment
 venv/*
+.venv/
 build/*
 
 

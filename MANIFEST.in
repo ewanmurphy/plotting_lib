@@ -1,2 +1,1 @@
-include journal_styles/*
-
+recursive-include src/plotting_lib/journal_styles *
